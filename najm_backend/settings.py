@@ -137,3 +137,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     'https://najmecommerceuz.netlify.app',
 ]
+
+
+CORS_ALLOW_ALL_ORIGINS = True

@@ -3,7 +3,7 @@ import requests
 
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+load_dotenv()
 
 SUCCESS = 200
 PROCESSING = 102
@@ -24,6 +24,7 @@ class SendSmsApiWithEskiz:
         self.spend = None
         self.email = email
         self.password = password
+        print(ESKIZ_EMAIL, ESKIZ_PASSWORD)
 
     def send(self):
         status_code = self.custom_validation()
@@ -53,6 +54,7 @@ class SendSmsApiWithEskiz:
         AUTHORIZATION_URL = 'http://notify.eskiz.uz/api/auth/login'
 
         r = requests.request('POST', AUTHORIZATION_URL, data=data)
+        print(r.json()['message'], data)
         if r.json()['data']['token']:
             return r.json()['data']['token']
         else:
@@ -165,8 +167,8 @@ class SendSmsApiWithEskiz:
             return FAILED
 
 
-message = "Салом дунё"
-phone = 919791999
+message = "Bu Eskiz dan test"
+phone = 937882277
 eskiz_api = SendSmsApiWithEskiz(message=message, phone=phone)
 r = eskiz_api.send()
 

@@ -167,9 +167,3 @@ class SendSmsApiWithEskiz:
             return FAILED
 
 
-message = "Bu Eskiz dan test"
-phone = 937882277
-eskiz_api = SendSmsApiWithEskiz(message=message, phone=phone)
-r = eskiz_api.send()
-
-print(r)

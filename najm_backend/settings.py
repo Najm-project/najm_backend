@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-5lt*)do6^+a)7s&h(@xn9i9a@wj2mdeu#+(7l^uvu*wk!6j03k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['najm.pythonanywhere.com']
 
+ALLOWED_HOSTS = ['localhost', 'najmecommerceuz.netlify.app', 'najm.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
@@ -135,4 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    'https://najmecommerceuz.netlify.app',
 ]

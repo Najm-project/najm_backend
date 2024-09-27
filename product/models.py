@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -12,6 +12,26 @@ class BaseModel(models.Model):
 
 class CategoryModel(BaseModel):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name
@@ -24,6 +44,25 @@ class CategoryModel(BaseModel):
 
 class ColorModel(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Код')
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -38,6 +77,25 @@ class Attribute(BaseModel):
     name = models.CharField(max_length=255, verbose_name='Название')
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='attributes',
                                  verbose_name='Категорие')
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -76,6 +134,25 @@ class ProductModel(BaseModel):
         related_name='products',
         verbose_name='Категория'
     )
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

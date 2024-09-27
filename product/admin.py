@@ -7,6 +7,7 @@ class CategoryModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     search_fields = ('name',)
     ordering = ('name',)
+    exclude = ('slug',)
 
 
 @admin.register(ColorModel)
@@ -14,7 +15,7 @@ class ColorModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     search_fields = ('name',)
     ordering = ('name',)
-
+    exclude = ('slug',)
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
@@ -22,7 +23,7 @@ class AttributeAdmin(admin.ModelAdmin):
     search_fields = ('name', 'category__name')
     list_filter = ('category',)
     ordering = ('name',)
-
+    exclude = ('slug',)
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImageModel
@@ -35,6 +36,7 @@ class ProductModelAdmin(admin.ModelAdmin):
     search_fields = ('name', 'category__name', 'color__name')
     list_filter = ('category', 'color', 'is_recommended', 'in_stock')
     ordering = ('name',)
+    exclude = ('slug',)
     inlines = [ProductImageInline]
 
 

@@ -5,19 +5,19 @@ from .models import ProductModel, ProductImageModel, CategoryModel, ColorModel, 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryModel
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'slug']
 
 
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = ColorModel
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'slug']
 
 
 class AttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attribute
-        fields = ['id', 'name', 'category']
+        fields = ['id', 'name', 'category', 'slug']
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -35,4 +35,4 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductModel
         fields = ['id', 'name', 'price', 'description', 'in_stock', 'is_recommended', 'color', 'attribute', 'category',
-                  'images']
+                  'images', 'slug']

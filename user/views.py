@@ -23,7 +23,9 @@ class UserRegistrationView(GenericAPIView):
             verification_code = "1234"
             sms_api = SendSmsApiWithEskiz(message="Bu Eskiz dan test",
                                           phone=phone_number)
+            print(sms_api)
             sms_status = sms_api.send()
+            print(sms_status)
 
             if sms_status == SUCCESS:
                 request.session[phone_number] = verification_code

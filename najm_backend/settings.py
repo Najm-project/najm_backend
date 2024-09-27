@@ -25,10 +25,11 @@ SECRET_KEY = 'django-insecure-5lt*)do6^+a)7s&h(@xn9i9a@wj2mdeu#+(7l^uvu*wk!6j03k
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['localhost', 'najmecommerceuz.netlify.app', 'najm.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', 'najmecommerceuz.netlify.app', 'najm.pythonanywhere.com', '38.242.226.165']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

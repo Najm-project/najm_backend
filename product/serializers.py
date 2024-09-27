@@ -11,13 +11,13 @@ class CategorySerializer(serializers.ModelSerializer):
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = ColorModel
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'code', 'product', 'slug']
 
 
 class AttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attribute
-        fields = ['id', 'name', 'category', 'slug']
+        fields = ['id', 'name', 'attribute_category', 'slug']
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -29,8 +29,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
     category = CategorySerializer(read_only=True)
-    color = ColorSerializer(read_only=True)
-    attribute = AttributeSerializer(read_only=True)
+    color = ColorSerializer(read_only=True, many=True)
+    attribute = AttributeSerializer(read_only=True, many=True)
 
     class Meta:
         model = ProductModel

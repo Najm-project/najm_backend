@@ -63,7 +63,7 @@ class AttributeAdmin(admin.ModelAdmin):
     exclude = ('slug',)
 
 
-@admin.register()
+@admin.register(AttributeCategory)
 class AttributeCategoryModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'product', 'created_at', 'updated_at')
     search_fields = ('name', 'product__name')

@@ -49,7 +49,7 @@ class ProductImageModelAdmin(admin.ModelAdmin):
 
 @admin.register(ColorModel)
 class ColorModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at', 'updated_at')
+    list_display = ('name', 'code', 'created_at', 'updated_at')
     search_fields = ('name',)
     ordering = ('name',)
     exclude = ('slug',)

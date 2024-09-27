@@ -42,92 +42,12 @@ class CategoryModel(BaseModel):
         db_table = 'categories'
 
 
-class ColorModel(BaseModel):
-    name = models.CharField(max_length=100, verbose_name='Код')
-    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Цвета'
-        verbose_name = 'Цвет'
-        db_table = 'colors'
-
-
-class Attribute(BaseModel):
-    name = models.CharField(max_length=255, verbose_name='Название')
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='attributes',
-                                 verbose_name='Категорие')
-    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'attributes'
-        verbose_name = 'Аттрибут'
-        verbose_name_plural = 'Аттрибуты'
-
-
 class ProductModel(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Название')
     price = models.PositiveBigIntegerField(verbose_name='Цена')
     description = models.TextField(verbose_name='Описание')
     in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
     is_recommended = models.BooleanField(default=False, verbose_name='Бест селлер?')
-    color = models.ForeignKey(
-        ColorModel,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='products',
-        verbose_name='Цвет'
-    )
-    attribute = models.ForeignKey(
-        Attribute,
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name='products',
-        verbose_name='Атрибут'
-    )
     category = models.ForeignKey(
         CategoryModel,
         on_delete=models.CASCADE,
@@ -161,6 +81,121 @@ class ProductModel(BaseModel):
         verbose_name_plural = 'Товары'
         verbose_name = 'Товар'
         db_table = 'products'
+
+
+class ColorModel(BaseModel):
+    name = models.CharField(max_length=100, verbose_name='Код')
+    in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
+    product = models.ForeignKey(
+        ProductModel,
+        on_delete=models.CASCADE,
+        related_name='images',
+        verbose_name='Товар'
+    )
+    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом')
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Цвета'
+        verbose_name = 'Цвет'
+        db_table = 'colors'
+
+
+class AttributeCategory(BaseModel):
+    name = models.CharField(max_length=255, verbose_name='Название')
+    product = models.ForeignKey(
+        ProductModel,
+        on_delete=models.CASCADE,
+        related_name='attribute_cats',
+        verbose_name='Товар'
+    )
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'attributes'
+        verbose_name = 'Аттрибут'
+        verbose_name_plural = 'Аттрибуты'
+
+
+class Attribute(BaseModel):
+    name = models.CharField(max_length=255, verbose_name='Название')
+    in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
+    attribute_category = models.ForeignKey(
+        AttributeCategory,
+        on_delete=models.CASCADE,
+        related_name='attributes',
+        verbose_name='Категория'
+    )
+    slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+
+        while self.__class__.objects.filter(slug=self.slug).exists():
+            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'attributes'
+        verbose_name = 'Аттрибут'
+        verbose_name_plural = 'Аттрибуты'
+        
 
 
 class ProductImageModel(BaseModel):

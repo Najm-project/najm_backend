@@ -32,12 +32,12 @@ class AttributeCategoryInline(admin.TabularInline):
 
 @admin.register(ProductModel)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category', 'color', 'created_at', 'updated_at')
-    search_fields = ('name', 'category__name', 'color__name')
-    list_filter = ('category', 'color', 'is_recommended', 'in_stock')
+    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category', 'created_at', 'updated_at')
+    search_fields = ('name', 'category__name',)
+    list_filter = ('category', 'is_recommended', 'in_stock')
     ordering = ('name',)
     exclude = ('slug',)
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, ColorModelInline, AttributeCategoryInline, AttributeInline]
 
 
 @admin.register(ProductImageModel)
@@ -56,7 +56,7 @@ class ColorModelAdmin(admin.ModelAdmin):
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'created_at', 'updated_at')
+    list_display = ('name', 'created_at', 'updated_at')
     search_fields = ('name', 'attribute_category__name')
     list_filter = ('category',)
     ordering = ('name',)

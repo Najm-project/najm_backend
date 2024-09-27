@@ -154,7 +154,7 @@ class AttributeCategory(BaseModel):
         return self.name
 
     class Meta:
-        db_table = 'attributes'
+        db_table = 'attribute_cats'
         verbose_name = 'Аттрибут'
         verbose_name_plural = 'Аттрибуты'
 

@@ -89,7 +89,7 @@ class ColorModel(BaseModel):
     product = models.ForeignKey(
         ProductModel,
         on_delete=models.CASCADE,
-        related_name='images',
+        related_name='colors',
         verbose_name='Товар'
     )
     product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом')

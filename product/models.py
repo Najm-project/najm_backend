@@ -84,7 +84,8 @@ class ProductModel(BaseModel):
 
 
 class ColorModel(BaseModel):
-    name = models.CharField(max_length=100, verbose_name='Код')
+    code = models.CharField(max_length=100, verbose_name='Код')
+    name = models.CharField(max_length=255, verbose_name='Название')
     in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
     product = models.ForeignKey(
         ProductModel,

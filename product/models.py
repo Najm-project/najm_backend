@@ -162,6 +162,12 @@ class AttributeCategory(BaseModel):
 class Attribute(BaseModel):
     name = models.CharField(max_length=255, verbose_name='Название')
     in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
+    product = models.ForeignKey(
+        ProductModel,
+        on_delete=models.CASCADE,
+        related_name='attributes',
+        verbose_name='Товар'
+    )
     attribute_category = models.ForeignKey(
         AttributeCategory,
         on_delete=models.CASCADE,

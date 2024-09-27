@@ -58,7 +58,7 @@ class ColorModelAdmin(admin.ModelAdmin):
 class AttributeAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     search_fields = ('name', 'attribute_category__name')
-    list_filter = ('category',)
+    list_filter = ('attribute_category',)
     ordering = ('name',)
     exclude = ('slug',)
 

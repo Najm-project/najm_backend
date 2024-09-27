@@ -92,7 +92,7 @@ class ColorModel(BaseModel):
         related_name='colors',
         verbose_name='Товар'
     )
-    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом')
+    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом', null=True, blank=True)
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -155,8 +155,8 @@ class AttributeCategory(BaseModel):
 
     class Meta:
         db_table = 'attribute_cats'
-        verbose_name = 'Аттрибут'
-        verbose_name_plural = 'Аттрибуты'
+        verbose_name = 'Категория Аттрибутов'
+        verbose_name_plural = 'Категории Аттрибутов'
 
 
 class Attribute(BaseModel):

@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
+import random
 
 from .serializers import UserRegistrationSerializer, VerifyCodeSerializer, UserLoginSerializer, \
     ChangePasswordSerializer, UpdateNameSerializer, RequestPasswordResetSerializer
@@ -20,7 +21,7 @@ class UserRegistrationView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.validated_data.get('phone_number')
-            verification_code = "1234"
+            verification_code = random.randint(1000, 9999)
             sms_api = SendSmsApiWithEskiz(message="Bu Eskiz dan test",
                                           phone=phone_number)
             print(sms_api)
@@ -30,7 +31,7 @@ class UserRegistrationView(GenericAPIView):
             if sms_status == SUCCESS:
                 request.session[phone_number] = verification_code
                 serializer.save()
-                return Response({'message': 'User registered successfully. Verification code sent.'},
+                return Response({'message': 'User registered successfully. Verification code sent.', 'code': verification_code},
                                 status=status.HTTP_201_CREATED)
             else:
                 return Response({'message': 'Failed to send verification code.'},

@@ -21,7 +21,7 @@ class UserRegistrationView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.validated_data.get('phone_number')
-            verification_code = random.randint(1000, 9999)
+            verification_code = str(random.randint(1000, 9999))
             sms_api = SendSmsApiWithEskiz(message="Bu Eskiz dan test",
                                           phone=phone_number)
             print(sms_api)
@@ -29,7 +29,7 @@ class UserRegistrationView(GenericAPIView):
             print(sms_status)
 
             if sms_status == SUCCESS:
-                request.session[phone_number] = str(verification_code)
+                request.session[phone_number] = verification_code
                 serializer.save()
                 return Response({'message': 'User registered successfully. Verification code sent.', 'code': verification_code},
                                 status=status.HTTP_201_CREATED)

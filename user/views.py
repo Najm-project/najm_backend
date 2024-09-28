@@ -29,7 +29,7 @@ class UserRegistrationView(GenericAPIView):
             print(sms_status)
 
             if sms_status == SUCCESS:
-                request.session[phone_number] = verification_code
+                request.session[phone_number] = str(verification_code)
                 serializer.save()
                 return Response({'message': 'User registered successfully. Verification code sent.', 'code': verification_code},
                                 status=status.HTTP_201_CREATED)

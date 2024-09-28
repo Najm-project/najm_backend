@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 import random
 
-from .serializers import UserRegistrationSerializer, VerifyCodeSerializer, UserLoginSerializer, \
+from .serializers import UserRegistrationSerializer, VerifyCodeSerializer, \
     ChangePasswordSerializer, UpdateNameSerializer, RequestPasswordResetSerializer
 from .eskiz import SendSmsApiWithEskiz, SUCCESS
 
@@ -63,27 +63,6 @@ class VerifyCodeView(GenericAPIView):
             else:
                 return Response({'message': 'Invalid verification code.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class UserTokenObtainPairView(TokenObtainPairView):
-    serializer_class = UserLoginSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        response = super().post(request, *args, **kwargs)
-
-        if response.status_code == 200:
-            user = serializer.context.get('user')
-            refresh_token = RefreshToken.for_user(user)
-            access_token = refresh_token.access_token
-
-            data = {
-                'access_token': str(access_token),
-                "refresh_token": str(refresh_token)
-            }
-            return Response(data=data, status=status.HTTP_200_OK)
-        return response
 
 
 class UpdateNameView(GenericAPIView):

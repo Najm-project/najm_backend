@@ -39,21 +39,6 @@ class VerifyCodeSerializer(serializers.Serializer):
     verification_code = serializers.CharField(required=True)
 
 
-class UserLoginSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        phone_number = attrs.get("username")
-        try:
-            user = User.objects.get(phone_number=phone_number)
-            self.context['user'] = user
-        except User.DoesNotExist:
-            user = None
-        if user:
-            attrs[self.username_field] = user.get_username()
-            return super().validate(attrs)
-        else:
-            raise ParseError("User with given phone number does not exist.")
-
-
 class UpdateNameSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)

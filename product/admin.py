@@ -46,7 +46,7 @@ class ProductModelAdmin(admin.ModelAdmin):
             images = obj.images.all()
             return format_html_join(
                 '\n',
-                '<img src="{}" width="50%" style="margin-right: 5px;" />',
+                '<img src="{}" width="10%" style="margin-right: 5px;" />',
                 [(image.image.url,) for image in images]
             )
         return "No Images"

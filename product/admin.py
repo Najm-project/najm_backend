@@ -1,10 +1,11 @@
 from django.contrib import admin
 from .models import CategoryModel, ColorModel, Attribute, AttributeCategory, ProductModel, ProductImageModel
+from django.utils.html import format_html, format_html_join
 
 
 @admin.register(CategoryModel)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name',)
     search_fields = ('name',)
     ordering = ('name',)
     exclude = ('slug',)
@@ -32,12 +33,25 @@ class AttributeCategoryInline(admin.TabularInline):
 
 @admin.register(ProductModel)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category')
+    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category', 'product_images')
     search_fields = ('name', 'category__name',)
     list_filter = ('category', 'is_recommended', 'in_stock')
     ordering = ('name',)
     exclude = ('slug',)
     inlines = [ProductImageInline, ColorModelInline, AttributeCategoryInline, AttributeInline]
+
+    def product_images(self, obj):
+        if obj.images.exists():
+            # Join all images in a single HTML output
+            images = obj.images.all()
+            return format_html_join(
+                '\n',
+                '<img src="{}" width="50" height="50" style="margin-right: 5px;" />',
+                [(image.image.url,) for image in images]
+            )
+        return "No Images"
+
+    product_images.short_description = 'Images'
 
 
 @admin.register(ProductImageModel)
@@ -54,9 +68,10 @@ class ColorModelAdmin(admin.ModelAdmin):
     ordering = ('name',)
     exclude = ('slug',)
 
+
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name',)
     search_fields = ('name', 'attribute_category__name')
     list_filter = ('attribute_category',)
     ordering = ('name',)

@@ -4,7 +4,7 @@ from .models import CategoryModel, ColorModel, Attribute, AttributeCategory, Pro
 
 @admin.register(CategoryModel)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at', 'updated_at')
+    list_display = ('name', )
     search_fields = ('name',)
     ordering = ('name',)
     exclude = ('slug',)
@@ -32,7 +32,7 @@ class AttributeCategoryInline(admin.TabularInline):
 
 @admin.register(ProductModel)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category', 'created_at', 'updated_at')
+    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category')
     search_fields = ('name', 'category__name',)
     list_filter = ('category', 'is_recommended', 'in_stock')
     ordering = ('name',)
@@ -42,21 +42,21 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImageModel)
 class ProductImageModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'image', 'created_at', 'updated_at')
+    list_display = ('id', 'product', 'image')
     search_fields = ('product__name',)
     ordering = ('product',)
 
 
 @admin.register(ColorModel)
 class ColorModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'created_at', 'updated_at')
+    list_display = ('name', 'code')
     search_fields = ('name',)
     ordering = ('name',)
     exclude = ('slug',)
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at', 'updated_at')
+    list_display = ('name', )
     search_fields = ('name', 'attribute_category__name')
     list_filter = ('attribute_category',)
     ordering = ('name',)
@@ -65,7 +65,7 @@ class AttributeAdmin(admin.ModelAdmin):
 
 @admin.register(AttributeCategory)
 class AttributeCategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'product', 'created_at', 'updated_at')
+    list_display = ('name', 'product')
     search_fields = ('name', 'product__name')
     ordering = ('name',)
     exclude = ('slug',)

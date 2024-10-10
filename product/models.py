@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-
+from unidecode import unidecode
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -16,7 +16,8 @@ class CategoryModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
 
         while CategoryModel.objects.filter(slug=self.slug).exists():
             slug = CategoryModel.objects.filter(slug=self.slug).first().slug
@@ -57,7 +58,8 @@ class ProductModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
 
         while ProductModel.objects.filter(slug=self.slug).exists():
             slug = ProductModel.objects.filter(slug=self.slug).first().slug
@@ -96,7 +98,8 @@ class ColorModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
 
         while ColorModel.objects.filter(slug=self.slug).exists():
             slug = ColorModel.objects.filter(slug=self.slug).first().slug
@@ -133,7 +136,8 @@ class AttributeCategory(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
 
         while AttributeCategory.objects.filter(slug=self.slug).exists():
             slug = AttributeCategory.objects.filter(slug=self.slug).first().slug
@@ -178,7 +182,8 @@ class Attribute(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
 
         while Attribute.objects.filter(slug=self.slug).exists():
             slug = Attribute.objects.filter(slug=self.slug).first().slug

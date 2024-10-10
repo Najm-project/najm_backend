@@ -13,30 +13,6 @@ class RecommendedProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
 
 
-class PensProductListView(generics.ListAPIView):
-    queryset = ProductModel.objects.filter(
-        category__name__in=['pen', 'pens', 'pencil', 'pencils', 'карандаш', 'карандаши', 'ручка', 'ручки'])
-    serializer_class = ProductSerializer
-
-
-class DiariesProductListView(generics.ListAPIView):
-    queryset = ProductModel.objects.filter(
-        category__name__in=['diary', 'diaries', 'ежедневник', 'ежедневники'])
-    serializer_class = ProductSerializer
-
-
-class NotebooksProductListView(generics.ListAPIView):
-    queryset = ProductModel.objects.filter(
-        category__name__in=['notebook', 'notebooks', 'тетрадь', 'тетради'])
-    serializer_class = ProductSerializer
-
-
-class StickersProductListView(generics.ListAPIView):
-    queryset = ProductModel.objects.filter(
-        category__name__in=['sticker', 'stickers', 'стикер', 'стикеры'])
-    serializer_class = ProductSerializer
-
-
 class NewProductListView(generics.ListAPIView):
     queryset = ProductModel.objects.order_by('-created_at')[:10]
     serializer_class = ProductSerializer

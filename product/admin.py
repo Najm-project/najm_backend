@@ -33,25 +33,12 @@ class AttributeCategoryInline(admin.TabularInline):
 
 @admin.register(ProductModel)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category', 'product_images')
+    list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category')
     search_fields = ('name', 'category__name',)
     list_filter = ('category', 'is_recommended', 'in_stock')
     ordering = ('name',)
     exclude = ('slug',)
     inlines = [ProductImageInline, ColorModelInline, AttributeCategoryInline, AttributeInline]
-
-    def product_images(self, obj):
-        if obj.images.exists():
-            # Join all images in a single HTML output
-            images = obj.images.all()
-            return format_html_join(
-                '\n',
-                '<img src="{}" width="10%" style="margin-right: 5px;" />',
-                [(image.image.url,) for image in images]
-            )
-        return "No Images"
-
-    product_images.short_description = 'Images'
 
 
 @admin.register(ProductImageModel)

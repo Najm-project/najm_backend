@@ -45,18 +45,10 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImageModel)
 class ProductImageModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'get_image')
+    list_display = ('id', 'product', 'image')
     search_fields = ('product__name',)
     list_filter = ('product__name',)
     ordering = ('product',)
-
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="10%"></a>')
-        else:
-            return 'No image'
-
-    get_image.short_description = 'Image'
 
 
 @admin.register(ColorModel)

@@ -155,8 +155,8 @@ class AttributeCategory(BaseModel):
 
     class Meta:
         db_table = 'attribute_cats'
-        verbose_name = 'Категория Аттрибутов'
-        verbose_name_plural = 'Категории Аттрибутов'
+        verbose_name = 'Категория Параметров'
+        verbose_name_plural = 'Категории Параметров'
 
 
 class Attribute(BaseModel):
@@ -168,6 +168,7 @@ class Attribute(BaseModel):
         related_name='attributes',
         verbose_name='Товар'
     )
+    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким параметром')
     attribute_category = models.ForeignKey(
         AttributeCategory,
         on_delete=models.CASCADE,
@@ -199,8 +200,8 @@ class Attribute(BaseModel):
 
     class Meta:
         db_table = 'attributes'
-        verbose_name = 'Аттрибут'
-        verbose_name_plural = 'Аттрибуты'
+        verbose_name = 'Параметр'
+        verbose_name_plural = 'Параметры'
         
 
 

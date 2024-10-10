@@ -17,6 +17,29 @@ class CartItem(BaseModel):
         db_table = 'cart_items'
 
 
+class OrderModel(BaseModel):
+    DELIVERY_CHOICES = [
+        ('pickup', 'Pickup'),
+        ('delivery', 'Delivery'),
+    ]
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+    color = models.CharField(max_length=255, null=True, blank=True, verbose_name="Цвет")
+    attributes = models.TextField(null=True, blank=True)
+    delivery_type = models.CharField(max_length=10, choices=DELIVERY_CHOICES, verbose_name='Delivery Type')
+    first_name = models.CharField(max_length=100, null=True, blank=True, verbose_name='First Name')
+    last_name = models.CharField(max_length=100, null=True, blank=True, verbose_name='Last Name')
+    phone_number = models.CharField(max_length=15, null=True, blank=True, verbose_name='Phone Number')
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} {self.product.name}"
+
+    class Meta:
+        verbose_name_plural = 'Заказы'
+        verbose_name = 'Заказ'
+        db_table = 'orders'
+
+
 class FavoriteItem(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorite_items', verbose_name='Пользователь')
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='favorite_items',

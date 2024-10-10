@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from shared.views import CartItemListCreateView, CartItemRetrieveUpdateDestroyView, FavoriteItemListCreateView, \
-    FavoriteItemRetrieveUpdateDestroyView, ReviewListCreateView, ReviewRetrieveUpdateDestroyView
+    FavoriteItemRetrieveUpdateDestroyView, ReviewListCreateView, ReviewRetrieveUpdateDestroyView, BuyProductView
 
 app_name = 'shared'
 
@@ -14,4 +14,6 @@ urlpatterns = [
 
     path('reviews/', ReviewListCreateView.as_view(), name='review-list-create'),
     path('reviews/<int:pk>/', ReviewRetrieveUpdateDestroyView.as_view(), name='review-detail'),
+
+    path('buy-product', BuyProductView.as_view(), name='buy-product'),
 ]

@@ -1,6 +1,8 @@
 from rest_framework import generics, permissions
-from .models import CartItem, FavoriteItem, Review
-from .serializers import CartItemSerializer, FavoriteItemSerializer, ReviewSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from .models import CartItem, FavoriteItem, Review, OrderModel
+from .serializers import CartItemSerializer, FavoriteItemSerializer, ReviewSerializer, BuyProductSerializer
 
 
 class CartItemListCreateView(generics.ListCreateAPIView):
@@ -48,3 +50,13 @@ class ReviewRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class BuyProductView(generics.CreateAPIView):
+    queryset = OrderModel.objects.all()
+    serializer_class = BuyProductSerializer
+
+    def get_permissions(self):
+        if self.request.user.is_authenticated:
+            return [IsAuthenticated()]
+        return [AllowAny()]

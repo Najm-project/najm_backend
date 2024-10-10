@@ -7,10 +7,14 @@ from django.utils.html import format_html, format_html_join
 
 @admin.register(CategoryModel)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'products')
     search_fields = ('name',)
-    ordering = ('name',)
     exclude = ('slug',)
+
+    def products(self, obj):
+        return obj.products.count()
+
+    products.short_description = 'Товары'
 
 
 class ProductImageInline(admin.TabularInline):
@@ -38,7 +42,6 @@ class ProductModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'in_stock', 'is_recommended', 'category')
     search_fields = ('name', 'category__name',)
     list_filter = ('category', 'is_recommended', 'in_stock')
-    ordering = ('name',)
     exclude = ('slug',)
     inlines = [ProductImageInline, ColorModelInline, AttributeCategoryInline, AttributeInline]
 
@@ -48,23 +51,20 @@ class ProductImageModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'product', 'image')
     search_fields = ('product__name',)
     list_filter = ('product__name',)
-    ordering = ('product',)
 
 
 @admin.register(ColorModel)
 class ColorModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code')
+    list_display = ('name', 'product_image_id', 'product', 'in_stock')
     search_fields = ('name',)
-    ordering = ('name',)
     exclude = ('slug',)
 
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'in_stock', 'product')
     search_fields = ('name', 'attribute_category__name')
     list_filter = ('attribute_category',)
-    ordering = ('name',)
     exclude = ('slug',)
 
 
@@ -72,5 +72,4 @@ class AttributeAdmin(admin.ModelAdmin):
 class AttributeCategoryModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'product')
     search_fields = ('name', 'product__name')
-    ordering = ('name',)
     exclude = ('slug',)

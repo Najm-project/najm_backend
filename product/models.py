@@ -84,7 +84,6 @@ class ProductModel(BaseModel):
 
 
 class ColorModel(BaseModel):
-    code = models.CharField(max_length=100, verbose_name='Код')
     name = models.CharField(max_length=255, verbose_name='Название')
     in_stock = models.BooleanField(default=True, verbose_name='В наличии?')
     product = models.ForeignKey(
@@ -93,7 +92,7 @@ class ColorModel(BaseModel):
         related_name='colors',
         verbose_name='Товар'
     )
-    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом', null=True, blank=True)
+    product_image_id = models.CharField(max_length=100, verbose_name='ID фото продукта с таким цветом')
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):

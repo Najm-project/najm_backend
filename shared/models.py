@@ -19,8 +19,8 @@ class CartItem(BaseModel):
 
 class OrderModel(BaseModel):
     DELIVERY_CHOICES = [
-        ('pickup', 'Pickup'),
-        ('delivery', 'Delivery'),
+        ('pickup', 'Cамовывоз'),
+        ('delivery', 'Доставка'),
     ]
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')

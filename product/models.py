@@ -16,21 +16,22 @@ class CategoryModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        transliterated_name = unidecode(self.name)
-        self.slug = slugify(transliterated_name)
+        if not self.slug:
+            transliterated_name = unidecode(self.name)
+            self.slug = slugify(transliterated_name)
 
-        while CategoryModel.objects.filter(slug=self.slug).exists():
-            slug = CategoryModel.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
+            while CategoryModel.objects.filter(slug=self.slug).exists():
+                slug = CategoryModel.objects.filter(slug=self.slug).first().slug
+                if '-' in slug:
+                    try:
+                        if slug.split('-')[-1] in self.name:
+                            self.slug += '-1'
+                        else:
+                            self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                    except:
+                        self.slug = slug + '-1'
+                else:
+                    self.slug += '-1'
 
         super().save(*args, **kwargs)
 
@@ -58,21 +59,22 @@ class ProductModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        transliterated_name = unidecode(self.name)
-        self.slug = slugify(transliterated_name)
+        if not self.slug:
+            transliterated_name = unidecode(self.name)
+            self.slug = slugify(transliterated_name)
 
-        while ProductModel.objects.filter(slug=self.slug).exists():
-            slug = ProductModel.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
+            while ProductModel.objects.filter(slug=self.slug).exists():
+                slug = ProductModel.objects.filter(slug=self.slug).first().slug
+                if '-' in slug:
+                    try:
+                        if slug.split('-')[-1] in self.name:
+                            self.slug += '-1'
+                        else:
+                            self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                    except:
+                        self.slug = slug + '-1'
+                else:
+                    self.slug += '-1'
 
         super().save(*args, **kwargs)
 
@@ -98,21 +100,22 @@ class ColorModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        transliterated_name = unidecode(self.name)
-        self.slug = slugify(transliterated_name)
+        if not self.slug:
+            transliterated_name = unidecode(self.name)
+            self.slug = slugify(transliterated_name)
 
-        while ColorModel.objects.filter(slug=self.slug).exists():
-            slug = ColorModel.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
+            while ColorModel.objects.filter(slug=self.slug).exists():
+                slug = ColorModel.objects.filter(slug=self.slug).first().slug
+                if '-' in slug:
+                    try:
+                        if slug.split('-')[-1] in self.name:
+                            self.slug += '-1'
+                        else:
+                            self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                    except:
+                        self.slug = slug + '-1'
+                else:
+                    self.slug += '-1'
 
         super().save(*args, **kwargs)
 
@@ -136,21 +139,22 @@ class AttributeCategory(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        transliterated_name = unidecode(self.name)
-        self.slug = slugify(transliterated_name)
+        if not self.slug:
+            transliterated_name = unidecode(self.name)
+            self.slug = slugify(transliterated_name)
 
-        while AttributeCategory.objects.filter(slug=self.slug).exists():
-            slug = AttributeCategory.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
+            while AttributeCategory.objects.filter(slug=self.slug).exists():
+                slug = AttributeCategory.objects.filter(slug=self.slug).first().slug
+                if '-' in slug:
+                    try:
+                        if slug.split('-')[-1] in self.name:
+                            self.slug += '-1'
+                        else:
+                            self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                    except:
+                        self.slug = slug + '-1'
+                else:
+                    self.slug += '-1'
 
         super().save(*args, **kwargs)
 
@@ -182,21 +186,22 @@ class Attribute(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        transliterated_name = unidecode(self.name)
-        self.slug = slugify(transliterated_name)
+        if not self.slug:
+            transliterated_name = unidecode(self.name)
+            self.slug = slugify(transliterated_name)
 
-        while Attribute.objects.filter(slug=self.slug).exists():
-            slug = Attribute.objects.filter(slug=self.slug).first().slug
-            if '-' in slug:
-                try:
-                    if slug.split('-')[-1] in self.name:
-                        self.slug += '-1'
-                    else:
-                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
-                except:
-                    self.slug = slug + '-1'
-            else:
-                self.slug += '-1'
+            while Attribute.objects.filter(slug=self.slug).exists():
+                slug = Attribute.objects.filter(slug=self.slug).first().slug
+                if '-' in slug:
+                    try:
+                        if slug.split('-')[-1] in self.name:
+                            self.slug += '-1'
+                        else:
+                            self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                    except:
+                        self.slug = slug + '-1'
+                else:
+                    self.slug += '-1'
 
         super().save(*args, **kwargs)
 

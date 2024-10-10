@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
+
 # Create your models here.
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -17,8 +18,8 @@ class CategoryModel(BaseModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
 
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+        while CategoryModel.objects.filter(slug=self.slug).exists():
+            slug = CategoryModel.objects.filter(slug=self.slug).first().slug
             if '-' in slug:
                 try:
                     if slug.split('-')[-1] in self.name:
@@ -31,7 +32,6 @@ class CategoryModel(BaseModel):
                 self.slug += '-1'
 
         super().save(*args, **kwargs)
-
 
     def __str__(self):
         return self.name
@@ -59,8 +59,8 @@ class ProductModel(BaseModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
 
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+        while ProductModel.objects.filter(slug=self.slug).exists():
+            slug = ProductModel.objects.filter(slug=self.slug).first().slug
             if '-' in slug:
                 try:
                     if slug.split('-')[-1] in self.name:
@@ -98,8 +98,8 @@ class ColorModel(BaseModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
 
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+        while ColorModel.objects.filter(slug=self.slug).exists():
+            slug = ColorModel.objects.filter(slug=self.slug).first().slug
             if '-' in slug:
                 try:
                     if slug.split('-')[-1] in self.name:
@@ -135,8 +135,8 @@ class AttributeCategory(BaseModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
 
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+        while AttributeCategory.objects.filter(slug=self.slug).exists():
+            slug = AttributeCategory.objects.filter(slug=self.slug).first().slug
             if '-' in slug:
                 try:
                     if slug.split('-')[-1] in self.name:
@@ -180,8 +180,8 @@ class Attribute(BaseModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
 
-        while self.__class__.objects.filter(slug=self.slug).exists():
-            slug = self.__class__.objects.filter(slug=self.slug).first().slug
+        while Attribute.objects.filter(slug=self.slug).exists():
+            slug = Attribute.objects.filter(slug=self.slug).first().slug
             if '-' in slug:
                 try:
                     if slug.split('-')[-1] in self.name:
@@ -202,7 +202,6 @@ class Attribute(BaseModel):
         db_table = 'attributes'
         verbose_name = 'Параметр'
         verbose_name_plural = 'Параметры'
-        
 
 
 class ProductImageModel(BaseModel):

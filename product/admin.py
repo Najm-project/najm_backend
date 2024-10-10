@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import CategoryModel, ColorModel, Attribute, AttributeCategory, ProductModel, ProductImageModel
 from django.utils.html import format_html, format_html_join
 
@@ -43,9 +45,17 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImageModel)
 class ProductImageModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'image')
+    list_display = ('id', 'product', 'get_image')
     search_fields = ('product__name',)
     ordering = ('product',)
+
+    def get_image(self, obj):
+        if obj.image:
+            return mark_safe(f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="50%"></a>')
+        else:
+            return 'No image'
+
+    get_image.short_description = 'Image'
 
 
 @admin.register(ColorModel)

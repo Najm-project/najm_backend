@@ -47,6 +47,7 @@ class ProductModelAdmin(admin.ModelAdmin):
 class ProductImageModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'product', 'get_image')
     search_fields = ('product__name',)
+    list_filter = ('product__name',)
     ordering = ('product',)
 
     def get_image(self, obj):

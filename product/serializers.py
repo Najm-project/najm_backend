@@ -3,9 +3,14 @@ from .models import ProductModel, ProductImageModel, CategoryModel, ColorModel, 
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    product_count = serializers.SerializerMethodField()
+
     class Meta:
         model = CategoryModel
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug', 'product_count']
+
+    def get_product_count(self, obj):
+        return obj.products.count()
 
 
 class ColorSerializer(serializers.ModelSerializer):

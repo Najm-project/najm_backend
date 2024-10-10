@@ -16,7 +16,7 @@ class CategoryModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name, allow_unicode=True)
 
         while CategoryModel.objects.filter(slug=self.slug).exists():
             slug = CategoryModel.objects.filter(slug=self.slug).first().slug
@@ -57,7 +57,7 @@ class ProductModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name, allow_unicode=True)
 
         while ProductModel.objects.filter(slug=self.slug).exists():
             slug = ProductModel.objects.filter(slug=self.slug).first().slug
@@ -96,7 +96,7 @@ class ColorModel(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name, allow_unicode=True)
 
         while ColorModel.objects.filter(slug=self.slug).exists():
             slug = ColorModel.objects.filter(slug=self.slug).first().slug
@@ -133,7 +133,7 @@ class AttributeCategory(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name, allow_unicode=True)
 
         while AttributeCategory.objects.filter(slug=self.slug).exists():
             slug = AttributeCategory.objects.filter(slug=self.slug).first().slug
@@ -178,7 +178,7 @@ class Attribute(BaseModel):
     slug = models.SlugField(verbose_name='slug', max_length=130, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name, allow_unicode=True)
 
         while Attribute.objects.filter(slug=self.slug).exists():
             slug = Attribute.objects.filter(slug=self.slug).first().slug

@@ -7,6 +7,8 @@ class CartItem(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Пользователь')
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+    color = models.CharField(max_length=255, null=True, blank=True, verbose_name="Цвет")
+    attributes = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.product.name} ({self.quantity})'

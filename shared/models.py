@@ -24,7 +24,7 @@ class OrderModel(BaseModel):
         ('pickup', 'Cамовывоз'),
         ('delivery', 'Доставка'),
     ]
-    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='orders', verbose_name='Товар')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
     color = models.CharField(max_length=255, null=True, blank=True, verbose_name="Цвет")
     attributes = models.TextField(null=True, blank=True)

@@ -51,7 +51,7 @@ class ProductImageModelAdmin(admin.ModelAdmin):
 
     def get_image(self, obj):
         if obj.image:
-            return mark_safe(f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="15%"></a>')
+            return mark_safe(f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="10%"></a>')
         else:
             return 'No image'
 

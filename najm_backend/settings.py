@@ -62,6 +62,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'najm_backend.wsgi.application'
+print(f"engine: {os.environ.get('DB_ENGINE')}, "
+      f"name: {os.environ.get('DB_NAME')}, "
+      f"user: {os.environ.get('DB_USER')}, "
+      f"password: {os.environ.get('DB_PASSWORD')}, "
+      f"host: {os.environ.get('DB_HOST')}, "
+      f"port: {os.environ.get('DB_PORT')}")
 
 DATABASES = {
     "default": {

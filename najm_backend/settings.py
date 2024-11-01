@@ -12,8 +12,6 @@ DEBUG: bool = os.environ.get("DEBUG") in ["True", "true"]
 
 ALLOWED_HOSTS = ["*"]
 
-# Application definition
-
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',

@@ -63,9 +63,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'najm_backend.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE"),

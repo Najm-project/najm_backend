@@ -152,10 +152,3 @@ CORS_ALLOWED_METHODS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://najm.uz",
-    "https://api.najm.uz",
-    "http://127.0.0.1:8000",
-    "http://localhost:5173",
-]

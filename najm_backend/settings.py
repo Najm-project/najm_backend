@@ -130,8 +130,6 @@ CORS_ALLOWED_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
-    "access-control-allow-origin",
-    "access-control-allow-credentials",
 ]
 
 CORS_ALLOWED_ORIGINS = [

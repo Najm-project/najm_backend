@@ -138,7 +138,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:5500",
-    "https://*.najm.uz",
     "https://najm.uz",
     "https://api.najm.uz",
 ]
@@ -155,18 +154,8 @@ CORS_ALLOWED_METHODS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.najm.uz",
     "https://najm.uz",
     "https://api.najm.uz",
     "http://127.0.0.1:8000",
     "http://localhost:5173",
-]
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://localhost:5500",
-    "https://*.najm.uz",
-    "https://najm.uz",
-    "https://api.najm.uz",
 ]

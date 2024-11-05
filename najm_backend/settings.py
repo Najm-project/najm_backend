@@ -123,12 +123,15 @@ SECURE_HSTS_SECONDS = 3600
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_HEADERS = [
-    'content-type',
-    'authorization',
-    'x-requested-with',
     'accept',
-    'origin',
     'accept-language',
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "access-control-allow-origin",
+    "access-control-allow-credentials",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -149,16 +152,6 @@ CORS_ALLOWED_METHODS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "authorization",
-    "content-type",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    "access-control-allow-origin",
-    "access-control-allow-credentials",
-]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.najm.uz",

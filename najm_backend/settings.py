@@ -162,6 +162,7 @@ CORS_ALLOW_HEADERS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.najm.uz",
+    "https://najm.uz",
     "http://127.0.0.1:8000",
     "http://localhost:5173",
 ]
